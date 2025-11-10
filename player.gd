@@ -3,6 +3,8 @@ signal hit
 
 @export var speed = 400 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
+var touchPos
+var touching
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,11 +18,15 @@ func start(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO # The player's movement vector.
+	if(touching):
+		if (touchPos.x < position.x):
+			velocity.x -= 1
+		if (touchPos.x > position.x):
+			velocity.x += 1
 	if Input.is_action_pressed("move_right") or Input.is_action_pressed("ui_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("move_left") or Input.is_action_pressed("ui_left"):
 		velocity.x -= 1
-
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -33,5 +39,11 @@ func _process(delta):
 
 func _on_body_entered(body: Node2D) -> void:
 	pass # Replace with function body.
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventScreenDrag:
+		touching = true;
+		touchPos = event.position
+
 	
 	
