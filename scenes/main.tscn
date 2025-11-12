@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dophh358uhtwu"]
+
+[ext_resource type="Script" uid="uid://r4gmk2rrlsx0" path="res://main.gd" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://c0hn83mte2umr" path="res://textures/Grass.png" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="3_tbgi4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sugp2"]
+atlas = ExtResource("2_jyhfs")
+region = Rect2(0, 80.5, 36, 31.5)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_sugp2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_sugp2")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("3_tbgi4")]
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(540, 1750)
