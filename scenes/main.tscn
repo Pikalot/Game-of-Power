@@ -1,31 +1,23 @@
-[gd_scene load_steps=10 format=3 uid="uid://dophh358uhtwu"]
+[gd_scene load_steps=8 format=3 uid="uid://dophh358uhtwu"]
 
 [ext_resource type="Script" uid="uid://r4gmk2rrlsx0" path="res://main.gd" id="1_sugp2"]
 [ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://wq5f81tn7jm2" path="res://scenes/mob.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://darw6usionfpu" path="res://art/png/roadTexture.png" id="3_tipki"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("2_tbgi4")
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jyhfs"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
-size = Vector2(3.1361933, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
-size = Vector2(0.5801792, 20)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jyhfs"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
+[sub_resource type="Curve2D" id="Curve2D_tbgi4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 592, 0)
+}
+point_count = 2
 
 [node name="Main" type="Node"]
 script = ExtResource("1_sugp2")
+mob_scene = ExtResource("2_tefeu")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -48,36 +40,26 @@ scale = Vector2(0.99, 1)
 texture = ExtResource("3_tipki")
 stretch_mode = 1
 
-[node name="StaticBody2D" type="StaticBody2D" parent="RoadPatern"]
-visible = false
-scale = Vector2(8.835412, 1703.0983)
-physics_material_override = SubResource("PhysicsMaterial_jyhfs")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoadPatern/StaticBody2D"]
-position = Vector2(12.461337, 0.08690045)
-scale = Vector2(1.5028031, 163538.83)
-shape = SubResource("RectangleShape2D_jyhfs")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="RoadPatern"]
-visible = false
-scale = Vector2(78.0645, 2900543.5)
-physics_material_override = SubResource("PhysicsMaterial_jyhfs")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RoadPatern/StaticBody2D2"]
-position = Vector2(8.100011, 8.067454e-05)
-shape = SubResource("RectangleShape2D_tbgi4")
-
 [node name="Player" parent="." instance=ExtResource("3_tbgi4")]
 scale = Vector2(2, 2)
 
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="StartPosition" type="Marker2D" parent="."]
-visible = false
 position = Vector2(360, 1024)
 
-[node name="Mob" type="RigidBody2D" parent="."]
-collision_mask = 0
-gravity_scale = 0.0
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tbgi4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Mob"]
-sprite_frames = SubResource("SpriteFrames_jyhfs")
-animation = &"walk"
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(128, 0)
+
+[connection signal="hit" from="Player" to="." method="strike"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
