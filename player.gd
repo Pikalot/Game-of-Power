@@ -35,7 +35,7 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 	position += velocity * delta
-	position = position.clamp(Vector2.ZERO + Vector2(100, 0), screen_size - Vector2(100, 0))
+	position = position.clamp(Vector2.ZERO + Vector2(150, 0), screen_size - Vector2(150, 0))
 
 
 func _on_body_entered(body: Node2D) -> void:

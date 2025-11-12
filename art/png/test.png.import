@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0hn83mte2umr"
-path="res://.godot/imported/Grass.png-4882ee70c464d824fba9c3aeffd15ee5.ctex"
+uid="uid://6dugv7fwvsjn"
+path="res://.godot/imported/test.png-b9d77a16e4730e55e3e67104d55221a5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/Grass.png"
-dest_files=["res://.godot/imported/Grass.png-4882ee70c464d824fba9c3aeffd15ee5.ctex"]
+source_file="res://art/png/test.png"
+dest_files=["res://.godot/imported/test.png-b9d77a16e4730e55e3e67104d55221a5.ctex"]
 
 [params]
 
@@ -31,7 +31,7 @@ process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2
 process/channel_remap/alpha=3
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false
