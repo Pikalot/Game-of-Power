@@ -1,26 +1,65 @@
-[gd_scene load_steps=5 format=3 uid="uid://dophh358uhtwu"]
+[gd_scene load_steps=8 format=3 uid="uid://dophh358uhtwu"]
 
 [ext_resource type="Script" uid="uid://r4gmk2rrlsx0" path="res://main.gd" id="1_sugp2"]
-[ext_resource type="Texture2D" uid="uid://c0hn83mte2umr" path="res://textures/Grass.png" id="2_jyhfs"]
+[ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://wq5f81tn7jm2" path="res://scenes/mob.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="3_tbgi4"]
+[ext_resource type="Texture2D" uid="uid://darw6usionfpu" path="res://art/png/roadTexture.png" id="3_tipki"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_sugp2"]
-atlas = ExtResource("2_jyhfs")
-region = Rect2(0, 80.5, 36, 31.5)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("2_tbgi4")
+
+[sub_resource type="Curve2D" id="Curve2D_tbgi4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 592, 0)
+}
+point_count = 2
 
 [node name="Main" type="Node"]
 script = ExtResource("1_sugp2")
+mob_scene = ExtResource("2_tefeu")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_sugp2")
+color = Color(0.44705883, 0.6431373, 0.8156863, 1)
+
+[node name="RoadPatern" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_tefeu")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+offset_right = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.99, 1)
+texture = ExtResource("3_tipki")
 stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("3_tbgi4")]
+scale = Vector2(2, 2)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
-position = Vector2(540, 1750)
+position = Vector2(360, 1024)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tbgi4")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(128, 0)
+
+[connection signal="hit" from="Player" to="." method="strike"]
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

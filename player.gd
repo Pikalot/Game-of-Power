@@ -35,11 +35,14 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 	position += velocity * delta
-	position = position.clamp(Vector2.ZERO + Vector2(100, 0), screen_size - Vector2(100, 0))
+	position = position.clamp(Vector2.ZERO + Vector2(150, 0), screen_size - Vector2(150, 0))
 
 
 func _on_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
+	hide() # Player disappears after being hit.
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
