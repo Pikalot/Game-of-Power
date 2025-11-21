@@ -1,10 +1,16 @@
 extends Area2D
 signal hit
 
+@export var bullet_scene: PackedScene
+@export var power = 1
 @export var speed = 500 # How fast the player will move (pixels/sec).
+
 var screen_size # Size of the game window.
 var touchPos
 var touching
+var mob: Node = null
+var invincible: bool = false
+var invincible_duration: float = 1.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,18 +42,59 @@ func _process(delta):
 		$AnimatedSprite2D.stop()
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO + Vector2(150, 0), screen_size - Vector2(150, 0))
+	
+	# Show player power
+	$PowerLabel.text = "x" + str(power)
 
 
 func _on_body_entered(body: Node2D) -> void:
-	hide() # Player disappears after being hit.
-	hit.emit()
-	# Must be deferred as we can't change physics properties on a physics callback.
-	$CollisionShape2D.set_deferred("disabled", true)
+	if not invincible and "power" in body:
+		take_hit(body.power)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		touching = true;
 		touchPos = event.position
 
+func shoot():
+	var bullet = bullet_scene.instantiate()
+	bullet.position = position
+	bullet.player = self
+	get_parent().add_child(bullet)
 	
+func stop_shooting() -> void:
+	$ShootTimer.stop()
+
+func _on_shoot_timer_timeout() -> void:
+	shoot()
 	
+func take_hit(damage: int) -> void:
+	if invincible:
+		return  # ignore damage during i-frames
+
+	power -= damage
+	if power <= 0:
+		die()
+	else:
+		start_invincibility()
+		
+func die() -> void:
+	stop_shooting()
+	hide() # Player disappears after being hit.
+	hit.emit()
+	# Must be deferred as we can't change physics properties on a physics callback.
+	$CollisionShape2D.set_deferred("disabled", true)
+
+func start_invincibility() -> void:
+	invincible = true
+	
+	# Flash effect
+	var flash_tween = create_tween()
+	flash_tween.tween_property($AnimatedSprite2D, "modulate:a", 0.2, 0.1)
+	flash_tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 0.1)
+	flash_tween.set_loops(5)  # flashing 5 times
+
+	# Timer to end invincibility
+	await get_tree().create_timer(invincible_duration).timeout
+	invincible = false
+	$AnimatedSprite2D.modulate = Color(1,1,1,1)  # reset fully visible
