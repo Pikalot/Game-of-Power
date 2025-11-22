@@ -1,8 +1,8 @@
 extends Node
 
 @export var mob_scene: PackedScene
-var power
-var speed = 75
+@export var power = 1
+@export var speed = 75
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,17 +14,11 @@ func _process(delta: float) -> void:
 	
 func new_game():
 	$Player.start($StartPosition.position)
-	power = 1
 	$StartTimer.start()
-	
+
+# Terminate game	
 func game_over():
 	$MobTimer.stop()
-
-
-#func strike() -> void:
-	#for mob in get_tree().get_nodes_in_group("mobs"):
-		#mob.play_animation("attack")
-		
 
 
 func _on_mob_timer_timeout() -> void:
