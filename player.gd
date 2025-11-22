@@ -17,8 +17,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	
 func start(pos):
+	touching = false;
 	position = pos
 	show()
+	$ShootTimer.start()
 	$CollisionShape2D.disabled = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

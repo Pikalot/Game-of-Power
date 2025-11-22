@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://dophh358uhtwu"]
+[gd_scene load_steps=9 format=3 uid="uid://dophh358uhtwu"]
 
 [ext_resource type="Script" uid="uid://r4gmk2rrlsx0" path="res://main.gd" id="1_sugp2"]
 [ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="2_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://wq5f81tn7jm2" path="res://scenes/mob.tscn" id="2_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="3_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://darw6usionfpu" path="res://art/png/roadTexture.png" id="3_tipki"]
+[ext_resource type="PackedScene" uid="uid://cy7gj50lfafvs" path="res://scenes/hud.tscn" id="6_tefeu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("2_tbgi4")
@@ -59,7 +60,10 @@ curve = SubResource("Curve2D_tbgi4")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 position = Vector2(128, 0)
 
+[node name="HUD" parent="." instance=ExtResource("6_tefeu")]
+
 [connection signal="hit" from="Player" to="." method="strike"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="restart_game" from="HUD" to="." method="new_game"]

@@ -14,11 +14,15 @@ func _process(delta: float) -> void:
 	
 func new_game():
 	$Player.start($StartPosition.position)
+	$Player.power = 1
 	$StartTimer.start()
+	$HUD.update_power(power)
+	get_tree().call_group("mobs", "queue_free")
 
 # Terminate game	
 func game_over():
 	$MobTimer.stop()
+	$HUD.show_game_over()
 
 
 func _on_mob_timer_timeout() -> void:
@@ -49,3 +53,7 @@ func _on_mob_timer_timeout() -> void:
 
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
+
+
+func _on_hud_restart_game() -> void:
+	pass # Replace with function body.
