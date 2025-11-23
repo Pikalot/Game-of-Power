@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://0cdphw0qjsby"]
+[gd_scene load_steps=10 format=3 uid="uid://0cdphw0qjsby"]
 
 [ext_resource type="Texture2D" uid="uid://de6uhhg6jqj3" path="res://art/png/Bullet 24x24 Free Part 3/Bullet 24x24 Free Part 3A.png" id="1_mkf8s"]
 [ext_resource type="Script" uid="uid://b12dqgytpf7in" path="res://scenes/bullet.gd" id="1_y25gk"]
+[ext_resource type="AudioStream" uid="uid://cxvxceggyts8k" path="res://art/bgm/431174__highpixel__fireball-explosion.wav" id="3_l5glv"]
+[ext_resource type="AudioStream" uid="uid://cwbgkyw023tey" path="res://art/bgm/442827__qubodup__fireball.wav" id="4_eoqba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y25gk"]
 atlas = ExtResource("1_mkf8s")
@@ -54,5 +56,12 @@ frame_progress = 0.061468888
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_h1aey")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_l5glv")
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_eoqba")
+volume_db = -6.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

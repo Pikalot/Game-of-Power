@@ -15,6 +15,7 @@ func _process(delta: float) -> void:
 func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
+	$BGM.play()
 
 # Terminate game	
 func game_over():
