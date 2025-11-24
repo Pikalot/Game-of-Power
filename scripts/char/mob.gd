@@ -1,21 +1,21 @@
-extends RigidBody2D
-var speed = 75
-var acceleration = 25
-var max_speed = 450
+extends "res://scripts/utils/animation.gd"
+
+@export var power = 5
+@export var speed = 100
+@export var acceleration = 25
+@export var max_speed = 450
+
 var screen_half_y = 0  # will be set from Main
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	play_animation("walk")
+	power = int(ceil(power * randf_range(0.6, 1.4)))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$PowerLabel.text = "x" + str(power)
 
-func play_animation(animation_name: String) -> void:
-	if $AnimatedSprite2D.sprite_frames.has_animation(animation_name):
-		$AnimatedSprite2D.animation = animation_name
-		$AnimatedSprite2D.play()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
@@ -27,3 +27,16 @@ func _integrate_forces(state):
 		speed = min(speed, max_speed)
 
 	linear_velocity = Vector2(0, speed)
+
+func die() -> void:
+	# Play death sound
+	var death_sound = $DeadSound.duplicate()
+	get_parent().add_child(death_sound)
+	death_sound.play()
+
+	queue_free()
+
+func take_hit(damage: int) -> void:
+	power -= damage
+	if power <= 0:
+		die()

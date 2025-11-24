@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cilj6ph0wk2i6"]
+[gd_scene load_steps=10 format=3 uid="uid://cilj6ph0wk2i6"]
 
 [ext_resource type="Texture2D" uid="uid://5hrft4wt63jr" path="res://textures/Basic Charakter Spritesheet.png" id="1_4flbx"]
-[ext_resource type="Script" uid="uid://blx7yurm3nnbk" path="res://scripts/char/player.gd" id="1_qhqgy"]
-[ext_resource type="PackedScene" uid="uid://0cdphw0qjsby" path="res://scenes/bullet.tscn" id="2_dqkch"]
-[ext_resource type="AudioStream" uid="uid://dq83uf5qud0ei" path="res://art/bgm/662465__fullstacksound__hurt_player.wav" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://blx7yurm3nnbk" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://0cdphw0qjsby" path="res://scenes/bullet.tscn" id="2_qhqgy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onrkg"]
 atlas = ExtResource("1_4flbx")
@@ -47,8 +46,9 @@ size = Vector2(31, 42)
 [node name="Player" type="Area2D"]
 scale = Vector2(6, 6)
 collision_layer = 4
-script = ExtResource("1_qhqgy")
-bullet_scene = ExtResource("2_dqkch")
+script = ExtResource("1_onrkg")
+bullet_scene = ExtResource("2_qhqgy")
+power = 10
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -72,9 +72,6 @@ theme_override_constants/outline_size = 4
 
 [node name="ShootTimer" type="Timer" parent="."]
 autostart = true
-
-[node name="HurtSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_qlg0r")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
