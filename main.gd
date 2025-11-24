@@ -10,14 +10,14 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$HUD.update_power($Player.power)
 	
 func new_game():
 	$Player.start($StartPosition.position)
 	$Player.power = 1
 	$StartTimer.start()
-	$HUD.update_power(power)
 	get_tree().call_group("mobs", "queue_free")
+	get_tree().call_group("power ups", "queue_free")
 
 # Terminate game	
 func game_over():

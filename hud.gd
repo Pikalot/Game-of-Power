@@ -19,8 +19,8 @@ func show_game_over():
 	$RestartButton.show()
 	
 func update_power(power):
-	$PowerLabel.text = "POWER"
 	$PowerNumberLabel.text = str(power)
+	$PowerNumberLabel.show()
 
 func _on_restart_pressed():
 	$RestartButton.hide()

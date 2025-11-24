@@ -1,3 +1,4 @@
+
 extends Area2D
 signal hit
 
@@ -47,7 +48,6 @@ func _process(delta):
 	
 	# Show player power
 	$PowerLabel.text = "x" + str(power)
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if not invincible and "power" in body:

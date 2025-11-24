@@ -34,6 +34,8 @@ func _integrate_forces(state):
 
 func die() -> void:
 	var power_up = powerup_scene.instantiate()
+	power_up.set_amount(1)
+	power_up.set_operation(power_up.Operation.ADD)
 	get_parent().add_child(power_up)
 	power_up.global_position = global_position
 	queue_free()
