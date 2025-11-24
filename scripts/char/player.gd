@@ -61,6 +61,9 @@ func _on_body_entered(body: Node2D) -> void:
 		if body.is_attacking and body in get_overlapping_bodies():
 			take_hit(body.power)
 		else:
+			body.stop_attack()
+		
+		if power <= 0:
 			body.stop_attack()	
 
 		return

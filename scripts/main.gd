@@ -58,6 +58,10 @@ func _on_boss_timer_timeout() -> void:
 
 	var boss = boss_scene.instantiate()
 
+	
+	# set where "half the screen" is for the boss
+	boss.screen_half_y = get_viewport().get_visible_rect().size.y / 2
+
 	# Spawn boss at the fixed marker
 	boss.position = $BossSpawnLocation.position
 
