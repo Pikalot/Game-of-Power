@@ -43,7 +43,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1jxqw"]
 size = Vector2(31, 42)
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=["player"]]
 scale = Vector2(6, 6)
 collision_layer = 4
 script = ExtResource("1_onrkg")
@@ -54,8 +54,6 @@ metadata/_edit_group_ = true
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_2hs0m")
 animation = &"walk"
-frame = 2
-frame_progress = 0.7387703
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 1)

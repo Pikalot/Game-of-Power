@@ -100,3 +100,6 @@ func start_invincibility() -> void:
 	await get_tree().create_timer(invincible_duration).timeout
 	invincible = false
 	$AnimatedSprite2D.modulate = Color(1,1,1,1)  # reset fully visible
+	
+func set_power(newPower: int) -> void:
+	power = newPower

@@ -4,6 +4,7 @@ extends RigidBody2D
 @export var speed = 100
 @export var acceleration = 25
 @export var max_speed = 450
+@export var powerup_scene: PackedScene
 
 var screen_half_y = 0  # will be set from Main
 
@@ -32,6 +33,9 @@ func _integrate_forces(state):
 	linear_velocity = Vector2(0, speed)
 
 func die() -> void:
+	var power_up = powerup_scene.instantiate()
+	get_parent().add_child(power_up)
+	power_up.global_position = global_position
 	queue_free()
 
 func take_hit(damage: int) -> void:

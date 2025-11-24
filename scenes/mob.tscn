@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://wq5f81tn7jm2"]
+[gd_scene load_steps=11 format=3 uid="uid://wq5f81tn7jm2"]
 
 [ext_resource type="Texture2D" uid="uid://fbo4e1282maf" path="res://art/Spritesheet/fazbear/running.png" id="1_nokgg"]
 [ext_resource type="Script" uid="uid://ckh0003g5kxrq" path="res://mob.gd" id="1_ubaqv"]
+[ext_resource type="PackedScene" uid="uid://ds52fjhkt57r2" path="res://scenes/power_up.tscn" id="2_d4cuo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
 atlas = ExtResource("1_nokgg")
@@ -62,6 +63,7 @@ height = 68.0
 collision_mask = 2
 gravity_scale = 0.0
 script = ExtResource("1_ubaqv")
+powerup_scene = ExtResource("2_d4cuo")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
