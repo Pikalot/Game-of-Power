@@ -1,6 +1,6 @@
 
 extends Area2D
-signal hit
+signal dead
 
 @export var bullet_scene: PackedScene
 @export var power = 1
@@ -40,9 +40,8 @@ func _process(delta):
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
-		$AnimatedSprite2D.play()
-	else:
-		$AnimatedSprite2D.stop()
+		
+	$AnimatedSprite2D.play()
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO + Vector2(150, 0), screen_size - Vector2(150, 0))
 	
@@ -50,8 +49,28 @@ func _process(delta):
 	$PowerLabel.text = "x" + str(power)
 
 func _on_body_entered(body: Node2D) -> void:
-	if not invincible and "power" in body:
-		take_hit(body.power)
+	if invincible or "power" not in body:
+		return
+	
+	# Boss special attack
+	if body.name == "boss":
+		body.attack()
+
+		# DELAY DAMAGE UNTIL THE HIT FRAME
+		await get_tree().create_timer(1.0).timeout  # 7 frames @ 7 FPS
+
+		# Check if player is still overlapping AND attack is still happening
+		if body.is_attacking and body in get_overlapping_bodies():
+			take_hit(body.power)
+		else:
+			body.stop_attack()
+		
+		if power <= 0:
+			body.stop_attack()	
+
+		return
+
+	take_hit(body.power)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
@@ -74,6 +93,7 @@ func take_hit(damage: int) -> void:
 	if invincible:
 		return  # ignore damage during i-frames
 
+	$HurtSound.play()
 	power -= damage
 	if power <= 0:
 		die()
@@ -83,7 +103,7 @@ func take_hit(damage: int) -> void:
 func die() -> void:
 	stop_shooting()
 	hide() # Player disappears after being hit.
-	hit.emit()
+	dead.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
 
