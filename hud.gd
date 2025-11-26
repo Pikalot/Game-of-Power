@@ -1,10 +1,13 @@
 extends CanvasLayer
 signal restart_game
+var settings_scene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$RestartButton.hide()
 	$Message.hide()
+	$Settings.hide()
+	settings_scene = preload("res://scenes/settings.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,3 +29,6 @@ func _on_restart_pressed():
 	$RestartButton.hide()
 	$Message.hide()
 	restart_game.emit()
+
+func _on_settings_button_pressed():
+	$Settings.show()
