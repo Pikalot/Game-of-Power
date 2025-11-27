@@ -56,8 +56,8 @@ func _on_start_timer_timeout() -> void:
 
 
 func _on_hud_restart_game() -> void:
-	pass # Replace with function body.
-	$BossTimer.start()
+	#$BossTimer.start()
+	_ready()
 
 
 func _on_boss_timer_timeout() -> void:

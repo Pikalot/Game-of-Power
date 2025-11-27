@@ -77,5 +77,6 @@ flat = true
 
 [node name="Settings" parent="." instance=ExtResource("4_6fi6k")]
 
+[connection signal="restart_game" from="." to="." method="_on_restart_game"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
