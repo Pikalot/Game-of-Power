@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://wq5f81tn7jm2"]
+[gd_scene load_steps=12 format=3 uid="uid://wq5f81tn7jm2"]
 
 [ext_resource type="Script" uid="uid://ckh0003g5kxrq" path="res://scripts/char/mob.gd" id="1_d4cuo"]
 [ext_resource type="Texture2D" uid="uid://fbo4e1282maf" path="res://art/Spritesheet/fazbear/running.png" id="1_nokgg"]
-[ext_resource type="AudioStream" uid="uid://1uu3707w4fnl" path="res://art/bgm/512166__vox_artist__enemy-dying.wav" id="3_d4cuo"]
 [ext_resource type="PackedScene" uid="uid://ds52fjhkt57r2" path="res://scenes/power_up.tscn" id="2_d4cuo"]
+[ext_resource type="AudioStream" uid="uid://1uu3707w4fnl" path="res://art/bgm/512166__vox_artist__enemy-dying.wav" id="3_d4cuo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
 atlas = ExtResource("1_nokgg")
@@ -89,5 +89,6 @@ theme_override_constants/outline_size = 4
 
 [node name="DeadSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_d4cuo")
+bus = &"SFX"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
