@@ -8,14 +8,19 @@ enum Operation {MULT, DIV, SUB, ADD}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if(type == PowerUpType.POWER):
+		$PowerLabel.text = "Pow "
+	elif(type == PowerUpType.BULLET_SPEED):
+		$PowerLabel.text = "Fs "
+	
 	if(operation == Operation.ADD):
-		$PowerLabel.text = "Pow +" + str(amount)
+		$PowerLabel.text += "+" + str(amount)
 	elif(operation == Operation.SUB):
-		$PowerLabel.text = "Pow -" + str(amount)
+		$PowerLabel.text += "-" + str(amount)
 	elif(operation == Operation.MULT):
-		$PowerLabel.text = "Pow X" + str(amount)
+		$PowerLabel.text += "x" + str(amount)
 	elif(operation == Operation.DIV):
-		$PowerLabel.text = "Pow /" + str(amount)
+		$PowerLabel.text += "/" + str(amount)
 	$PowerLabel.show()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -40,14 +45,24 @@ func _on_area_entered(area: Area2D) -> void:
 	$ChestOpen.play()
 	$AnimatedSprite2D.play()
 	if area.is_in_group("player"):
-		if(operation == Operation.ADD):
-			area.set_power(area.power + amount)
-		elif(operation == Operation.SUB):
-			area.set_power(area.power - amount)
-		elif(operation == Operation.MULT):
-			area.set_power(area.power * amount)
-		elif(operation == Operation.DIV):
-			area.set_power(area.power / amount)
+		if(type == PowerUpType.POWER):
+			if(operation == Operation.ADD):
+				area.set_power(area.power + amount)
+			elif(operation == Operation.SUB):
+				area.set_power(area.power - amount)
+			elif(operation == Operation.MULT):
+				area.set_power(area.power * amount)
+			elif(operation == Operation.DIV):
+				area.set_power(area.power / amount)
+		elif(type == PowerUpType.BULLET_SPEED):
+			if(operation == Operation.ADD):
+				area.set_bullet_speed(area.bullet_speed + amount)
+			elif(operation == Operation.SUB):
+				area.set_bullet_speed(area.bullet_speed - amount)
+			elif(operation == Operation.MULT):
+				area.set_bullet_speed(area.bullet_speed * amount)
+			elif(operation == Operation.DIV):
+				area.set_bullet_speed(area.bullet_speed / amount)
 
 func _on_delete_timer_timeout() -> void:
 	queue_free()

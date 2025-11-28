@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://pbdicpwel4em" path="res://hud.gd" id="1_oo0fn"]
 [ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="2_5ysmq"]
-[ext_resource type="Texture2D" uid="uid://cuui4j20scjk0" path="res://art/icons/SettingsIcon.png" id="3_5ysmq"]
+[ext_resource type="Texture2D" uid="uid://c3skt0al3hq4q" path="res://art/icons/Settings_Icon.png" id="3_6fi6k"]
 [ext_resource type="PackedScene" uid="uid://cfjwumyg8f7db" path="res://scenes/settings.tscn" id="4_6fi6k"]
 
 [node name="HUD" type="CanvasLayer"]
@@ -67,12 +67,16 @@ theme_override_font_sizes/font_size = 64
 text = "Restart"
 
 [node name="SettingsButton" type="Button" parent="."]
-offset_left = 56.0
-offset_top = 56.0
-offset_right = 576.0
-offset_bottom = 576.0
-scale = Vector2(0.15, 0.15)
-icon = ExtResource("3_5ysmq")
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_top = 60.0
+offset_right = -24.0
+offset_bottom = 196.0
+grow_horizontal = 0
+scale = Vector2(0.8, 0.8)
+icon = ExtResource("3_6fi6k")
 flat = true
 
 [node name="Settings" parent="." instance=ExtResource("4_6fi6k")]
@@ -80,3 +84,4 @@ flat = true
 [connection signal="restart_game" from="." to="." method="_on_restart_game"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="closed" from="Settings" to="." method="_on_settings_closed"]

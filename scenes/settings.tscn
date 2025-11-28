@@ -7,7 +7,15 @@
 [node name="Settings" type="CanvasLayer"]
 script = ExtResource("1_r6d6q")
 
-[node name="Back" type="Button" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21911496, 0.30634332, 0.18840256, 1)
+
+[node name="Resume" type="Button" parent="."]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -22,6 +30,22 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_6wm04")
 theme_override_font_sizes/font_size = 100
 text = "RESUME"
+
+[node name="Main Menu Button" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -185.0
+offset_top = -305.0
+offset_right = 185.0
+offset_bottom = -211.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_6wm04")
+theme_override_font_sizes/font_size = 100
+text = "MAIN MENU"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 4
@@ -68,4 +92,5 @@ value = 1.0
 bus_name = "SFX"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Resume" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Main Menu Button" to="." method="_on_main_menu_button_pressed"]

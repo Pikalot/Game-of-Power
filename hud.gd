@@ -6,7 +6,6 @@ var settings_scene
 func _ready() -> void:
 	$RestartButton.hide()
 	$Message.hide()
-	$Settings.hide()
 	settings_scene = preload("res://scenes/settings.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,4 +30,8 @@ func _on_restart_pressed():
 	restart_game.emit()
 
 func _on_settings_button_pressed():
+	$SettingsButton.hide()
 	$Settings.show()
+
+func _on_settings_closed():
+	$SettingsButton.show()

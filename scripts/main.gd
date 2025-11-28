@@ -50,15 +50,12 @@ func _on_mob_timer_timeout() -> void:
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
 
-
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
-
 
 func _on_hud_restart_game() -> void:
 	#$BossTimer.start()
 	_ready()
-
 
 func _on_boss_timer_timeout() -> void:
 	# Stop spawning mobs

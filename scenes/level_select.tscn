@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://k8e7dl5dvoyh"]
+
+[ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="1_3shnc"]
+[ext_resource type="Script" uid="uid://chpcxhcjp55b" path="res://scenes/level_select.gd" id="1_rif6e"]
+[ext_resource type="PackedScene" uid="uid://cmroprjbsgs5" path="res://scenes/level_card.tscn" id="2_p0wlc"]
+[ext_resource type="Texture2D" uid="uid://b601oe5iviegs" path="res://art/icons/back_icon.png" id="4_chg43"]
+
+[node name="level_select" type="Node"]
+script = ExtResource("1_rif6e")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.62219435, 0.7723201, 0.5705044, 1)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -193.5
+offset_top = 12.0
+offset_right = 219.5
+offset_bottom = 184.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_3shnc")
+theme_override_font_sizes/font_size = 200
+text = "Levels"
+
+[node name="LevelScroll" type="ScrollContainer" parent="."]
+offset_left = 64.0
+offset_top = 192.0
+offset_right = 656.0
+offset_bottom = 1216.0
+
+[node name="Levels" type="VBoxContainer" parent="LevelScroll"]
+layout_mode = 2
+
+[node name="Level" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+level_name = "main"
+
+[node name="Level2" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+
+[node name="Level3" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+
+[node name="Level4" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+
+[node name="Level5" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+
+[node name="Level6" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="."]
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 144.0
+offset_bottom = 168.0
+text = "
+"
+icon = ExtResource("4_chg43")
+flat = true
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]
