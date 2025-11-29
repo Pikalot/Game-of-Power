@@ -1,0 +1,157 @@
+[gd_scene load_steps=12 format=3 uid="uid://baipx2238r6ra"]
+
+[ext_resource type="Script" uid="uid://nocaoan7syql" path="res://scripts/tutorial.gd" id="1_ejswk"]
+[ext_resource type="PackedScene" uid="uid://c6maw3v4fjlxh" path="res://scenes/tutorial_mob.tscn" id="2_conm7"]
+[ext_resource type="Texture2D" uid="uid://coxl8h6hjhmdp" path="res://art/Scroll/PlainsScroll.png" id="3_bbk5w"]
+[ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="4_2ku1j"]
+[ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="6_gnai3"]
+[ext_resource type="AudioStream" uid="uid://kp5um61yegpt" path="res://art/bgm/727259__ncone__calm-melody-loop.mp3" id="7_i8kv5"]
+[ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="8_bbk5w"]
+[ext_resource type="AudioStream" uid="uid://dlg1fsgmhxl1w" path="res://art/bgm/gameover.wav" id="8_dxn3v"]
+[ext_resource type="PackedScene" uid="uid://cy7gj50lfafvs" path="res://scenes/hud.tscn" id="9_14jow"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
+shader = ExtResource("4_2ku1j")
+
+[sub_resource type="Curve2D" id="Curve2D_tbgi4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 128, 0, 0, 0, 0, 0, 592, 0)
+}
+point_count = 2
+
+[node name="Level1" type="Node"]
+script = ExtResource("1_ejswk")
+mob_scene = ExtResource("2_conm7")
+power = null
+speed = null
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.5254902, 0.8117647, 0.45490196, 1)
+
+[node name="PlainsPattern" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_tefeu")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -293.0
+offset_top = -638.0
+offset_right = 293.0
+offset_bottom = 640.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_bbk5w")
+stretch_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("6_gnai3")]
+scale = Vector2(2, 2)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(360, 1024)
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_tbgi4")
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2(128, 0)
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_i8kv5")
+volume_db = -12.0
+bus = &"Music"
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_dxn3v")
+
+[node name="HUD" parent="." instance=ExtResource("9_14jow")]
+
+[node name="MoveTutorial" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 240.0
+offset_right = 720.0
+offset_bottom = 552.0
+theme_override_fonts/font = ExtResource("8_bbk5w")
+theme_override_font_sizes/font_size = 100
+text = "Move left or right
+with your arrow keys"
+horizontal_alignment = 1
+
+[node name="FireTutorial" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -87.5
+offset_right = 368.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_bbk5w")
+theme_override_font_sizes/font_size = 100
+text = "You automatically
+ fire to hit enemies"
+horizontal_alignment = 1
+
+[node name="PowerTutorial" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -176.5
+offset_right = 360.0
+offset_bottom = 176.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_bbk5w")
+theme_override_font_sizes/font_size = 100
+text = "The numbers above
+ your player and
+ enemies represent
+ their power."
+horizontal_alignment = 1
+
+[node name="PowerTutorial2" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -176.5
+offset_right = 360.0
+offset_bottom = 176.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("8_bbk5w")
+theme_override_font_sizes/font_size = 100
+text = "Power is the damage
+ dealt. When your
+ power hits 0, it's
+game over."
+horizontal_alignment = 1
+
+[node name="PowerTutorialTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="dead" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="restart_game" from="HUD" to="." method="_on_hud_restart_game"]
+[connection signal="timeout" from="PowerTutorialTimer" to="." method="_on_power_tutorial_timer_timeout"]

@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="1_l6cm7"]
 [ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="2_rtw2f"]
 [ext_resource type="PackedScene" uid="uid://btjufsrh7esu1" path="res://scenes/main_menu_settings.tscn" id="3_bqqt6"]
-[ext_resource type="Texture2D" uid="uid://coxl8h6hjhmdp" path="res://art/icons/Screenshot 2025-11-28 034613.png" id="3_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://coxl8h6hjhmdp" path="res://art/Scroll/PlainsScroll.png" id="3_rtw2f"]
 [ext_resource type="TileSet" uid="uid://bcq4oy441bh6i" path="res://art/tilesets/forest.tres" id="4_tbmy8"]
 [ext_resource type="PackedScene" uid="uid://dv27ouy8vl3i3" path="res://scenes/credits.tscn" id="4_wu84c"]
 [ext_resource type="Texture2D" uid="uid://cqel31ybnf1ai" path="res://art/Spritesheet/Player/walk_Up.png" id="7_oa1go"]
