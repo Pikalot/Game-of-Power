@@ -30,15 +30,26 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 
 #set the power up type of either power or projectile speed
-func set_type(newType : PowerUpType):
-	type = newType
+func set_type(newType : String):
+	if(newType == "POWER"):
+		type = PowerUpType.POWER
+	elif(newType == "BULLET_SPEED"):
+		type = PowerUpType.BULLET_SPEED
 
 #set the amount to increase
 func set_amount(amt : int):
 	amount = amt
-	
-func set_operation(op : Operation):
-	operation = op
+
+#Set operation
+func set_operation(op : String):
+	if(op == "+"):
+		operation = Operation.ADD
+	elif(op == "-"):
+		operation = Operation.SUB
+	elif(op == "/"):
+		operation = Operation.DIV
+	elif(op == "*"):
+		operation = Operation.MULT
 
 func _on_area_entered(area: Area2D) -> void:
 	$DeleteTimer.start()

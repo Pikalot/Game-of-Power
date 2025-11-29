@@ -42,6 +42,10 @@ layout_mode = 2
 layout_mode = 2
 level_name = "level1"
 
+[node name="Level2" parent="LevelScroll/Levels" instance=ExtResource("2_p0wlc")]
+layout_mode = 2
+level_name = "level2"
+
 [node name="BackButton" type="Button" parent="."]
 offset_left = 8.0
 offset_top = 32.0

@@ -34,21 +34,8 @@ theme_override_fonts/font = ExtResource("2_5ysmq")
 theme_override_font_sizes/font_size = 100
 text = "0"
 
-[node name="Message" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -263.0
-offset_top = -230.0
-offset_right = 263.0
-offset_bottom = -58.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_5ysmq")
-theme_override_font_sizes/font_size = 150
-text = "Game over"
+[node name="Settings" parent="." instance=ExtResource("4_6fi6k")]
+layer = 2
 
 [node name="RestartButton" type="Button" parent="."]
 anchors_preset = 8
@@ -79,9 +66,23 @@ scale = Vector2(0.8, 0.8)
 icon = ExtResource("3_6fi6k")
 flat = true
 
-[node name="Settings" parent="." instance=ExtResource("4_6fi6k")]
+[node name="Message" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = -230.0
+offset_right = 263.0
+offset_bottom = -58.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_5ysmq")
+theme_override_font_sizes/font_size = 150
+text = "Game over"
 
 [connection signal="restart_game" from="." to="." method="_on_restart_game"]
+[connection signal="closed" from="Settings" to="." method="_on_settings_closed"]
 [connection signal="pressed" from="RestartButton" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="closed" from="Settings" to="." method="_on_settings_closed"]
