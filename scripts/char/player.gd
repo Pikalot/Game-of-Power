@@ -1,9 +1,11 @@
+
 extends Area2D
 signal dead
 
 @export var bullet_scene: PackedScene
 @export var power = 1
 @export var speed = 500 # How fast the player will move (pixels/sec).
+@export var bullet_speed = 300.0
 
 var screen_size # Size of the game window.
 var touchPos
@@ -17,8 +19,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	
 func start(pos):
+	touching = false;
 	position = pos
 	show()
+	$ShootTimer.start()
 	$CollisionShape2D.disabled = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,7 +48,6 @@ func _process(delta):
 	
 	# Show player power
 	$PowerLabel.text = "x" + str(power)
-
 
 func _on_body_entered(body: Node2D) -> void:
 	if invincible or "power" not in body:
@@ -78,6 +81,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func shoot():
 	var bullet = bullet_scene.instantiate()
 	bullet.position = position
+	bullet.speed = bullet_speed
 	bullet.player = self
 	get_parent().add_child(bullet)
 	
@@ -118,3 +122,9 @@ func start_invincibility() -> void:
 	await get_tree().create_timer(invincible_duration).timeout
 	invincible = false
 	$AnimatedSprite2D.modulate = Color(1,1,1,1)  # reset fully visible
+	
+func set_power(newPower: int) -> void:
+	power = newPower
+	
+func set_bullet_speed(newSpeed: int) -> void:
+	bullet_speed = newSpeed

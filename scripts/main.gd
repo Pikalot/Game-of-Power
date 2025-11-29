@@ -13,17 +13,21 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	$HUD.update_power($Player.power)
 	
 func new_game():
 	$Player.start($StartPosition.position)
+	$Player.power = 1
 	$StartTimer.start()
+	get_tree().call_group("mobs", "queue_free")
+	get_tree().call_group("power ups", "queue_free")
 	$BGM.play()
 	power = 1
 
 # Terminate game	
 func game_over():
 	$MobTimer.stop()
+	$HUD.show_game_over()
 	$BossTimer.stop()
 	$BGM.stop()
 	$GameOver.play()
@@ -46,11 +50,12 @@ func _on_mob_timer_timeout() -> void:
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
 
-
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
-	$BossTimer.start()
 
+func _on_hud_restart_game() -> void:
+	#$BossTimer.start()
+	_ready()
 
 func _on_boss_timer_timeout() -> void:
 	# Stop spawning mobs

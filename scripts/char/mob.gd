@@ -4,13 +4,17 @@ extends "res://scripts/utils/animation.gd"
 @export var speed = 100
 @export var acceleration = 25
 @export var max_speed = 450
+@export var powerup_scene: PackedScene
+@export var power_up_op = "+"
+@export var power_up_amt = 1
+@export var power_up_type = "POWER"
 
 var screen_half_y = 0  # will be set from Main
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	play_animation("walk")
-	power = int(ceil(power * randf_range(0.6, 1.4)))
+	#power = int(ceil(power * randf_range(0.6, 1.4)))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -29,6 +33,14 @@ func _integrate_forces(state):
 	linear_velocity = Vector2(0, speed)
 
 func die() -> void:
+	#Set up power up
+	var power_up = powerup_scene.instantiate()
+	power_up.set_amount(power_up_amt)
+	power_up.set_operation(power_up_op)
+	power_up.set_type(power_up_type)
+	get_parent().add_child(power_up)
+	
+	power_up.global_position = global_position
 	# Play death sound
 	var death_sound = $DeadSound.duplicate()
 	get_parent().add_child(death_sound)
@@ -40,3 +52,12 @@ func take_hit(damage: int) -> void:
 	power -= damage
 	if power <= 0:
 		die()
+		
+func set_power_up_amt(amt: int) -> void:
+	power_up_amt = amt
+	
+func set_power_up_type(type: String) -> void:
+	power_up_type = type
+	
+func set_power_up_op(op: String) -> void:
+	power_up_op = op

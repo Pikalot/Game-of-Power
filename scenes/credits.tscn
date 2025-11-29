@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv27ouy8vl3i3"]
+
+[ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="1_0bpdh"]
+[ext_resource type="Script" uid="uid://bj4prco3t62ru" path="res://scripts/credits.gd" id="1_2ckv8"]
+
+[node name="Credits" type="CanvasLayer"]
+script = ExtResource("1_2ckv8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.62219435, 0.7723201, 0.5705044, 1)
+
+[node name="Title" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -231.5
+offset_top = 24.0
+offset_right = 231.5
+offset_bottom = 196.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 200
+text = "Credits"
+
+[node name="Credits" type="Label" parent="."]
+offset_left = 192.0
+offset_top = 192.0
+offset_right = 505.0
+offset_bottom = 612.0
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 50
+text = "Programmers:
+	Alex Lim
+	Tuan Anh Ho
+
+Art Assets From:
+	@Sscary on Itch.io
+
+Music / SFX:
+	"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.5
+offset_top = 126.5
+offset_right = 135.5
+offset_bottom = 263.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 150
+text = "BACK"
+
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmroprjbsgs5"]
+
+[ext_resource type="Script" uid="uid://bog5335kw3n57" path="res://scripts/level.gd" id="1_o84w8"]
+[ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="2_fdh0y"]
+[ext_resource type="Texture2D" uid="uid://cksk8dgbvnnik" path="res://art/png/water.png" id="3_okl71"]
+[ext_resource type="Texture2D" uid="uid://dw2b1vinua860" path="res://art/icons/play_icon.png" id="4_h4lrp"]
+
+[node name="Level" type="Panel"]
+custom_minimum_size = Vector2(576, 200)
+offset_right = 592.0
+offset_bottom = 208.0
+script = ExtResource("1_o84w8")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 584.0
+offset_bottom = 200.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 24.0
+offset_right = 568.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_fdh0y")
+theme_override_font_sizes/font_size = 100
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 176.0
+offset_bottom = 184.0
+texture = ExtResource("3_okl71")
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 24.0
+offset_right = 176.0
+offset_bottom = 184.0
+icon = ExtResource("4_h4lrp")
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]

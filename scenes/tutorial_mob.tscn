@@ -1,0 +1,94 @@
+[gd_scene load_steps=12 format=3 uid="uid://c6maw3v4fjlxh"]
+
+[ext_resource type="Script" uid="uid://cgiu5igljhbc8" path="res://scripts/char/tutorial_mob.gd" id="1_ag2jb"]
+[ext_resource type="PackedScene" uid="uid://ds52fjhkt57r2" path="res://scenes/power_up.tscn" id="2_awd7j"]
+[ext_resource type="Texture2D" uid="uid://fbo4e1282maf" path="res://art/Spritesheet/fazbear/running.png" id="3_ahj30"]
+[ext_resource type="AudioStream" uid="uid://1uu3707w4fnl" path="res://art/bgm/512166__vox_artist__enemy-dying.wav" id="4_tihrg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
+atlas = ExtResource("3_ahj30")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4ey"]
+atlas = ExtResource("3_ahj30")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsing"]
+atlas = ExtResource("3_ahj30")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4cuo"]
+atlas = ExtResource("3_ahj30")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71rcx"]
+atlas = ExtResource("3_ahj30")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4are2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_choun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya4ey")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsing")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4cuo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bsing")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71rcx")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bsing"]
+radius = 32.0
+height = 68.0
+
+[node name="tutorial mob" type="RigidBody2D" groups=["mobs"]]
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_ag2jb")
+powerup_scene = ExtResource("2_awd7j")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_4are2")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("CapsuleShape2D_bsing")
+
+[node name="PowerLabel" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -65.0
+offset_right = 30.0
+offset_bottom = -42.0
+scale = Vector2(1.5, 1.5)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeadSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tihrg")
+bus = &"SFX"
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

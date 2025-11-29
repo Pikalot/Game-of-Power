@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Game of Power"
-run/main_scene="uid://dophh358uhtwu"
+run/main_scene="uid://dyalkv6xkihdc"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
