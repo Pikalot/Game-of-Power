@@ -76,15 +76,14 @@ func _on_mob_timer_timeout() -> void:
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
 	$Phase1Timer.start()
-	$BossTimer.start()
 
 func _on_hud_restart_game() -> void:
 	new_game()
 
 func _on_phase_1_timer_timeout() -> void:
-	print("Phase 1 Ended")
-	enhanced_mob_power_factor = 5
+	enhanced_mob_power_factor = 6
 	level_speed = 150
+	$BossTimer.start()
 	
 func _on_congrats_timer_timeout() -> void:
 	$Congrats.show()

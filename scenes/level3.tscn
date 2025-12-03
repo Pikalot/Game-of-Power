@@ -50,14 +50,14 @@ stretch_mode = 1
 scale = Vector2(2, 2)
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 1.5
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
 [node name="BossTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 20.0
 one_shot = true
 
 [node name="StartPosition" type="Marker2D" parent="."]
@@ -83,14 +83,15 @@ stream = ExtResource("6_6qt4k")
 [node name="HUD" parent="." instance=ExtResource("7_fh4ka")]
 
 [node name="Phase1Timer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 20.0
 one_shot = true
 
 [node name="EndLevelTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 3.0
 
 [node name="CongratsTimer" type="Timer" parent="."]
 wait_time = 3.0
+one_shot = true
 
 [node name="Congrats" type="Label" parent="."]
 visible = false
