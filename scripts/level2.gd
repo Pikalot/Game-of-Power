@@ -1,8 +1,10 @@
 extends Node
 
 @export var mob_scene: PackedScene
-@export var power = 5
-@export var speed = 100
+@export var player_power = 1
+@export var level_speed = 100
+@export var enhanced_mob_power_factor = 1
+
 var playerDead = false
 
 
@@ -18,14 +20,15 @@ func _process(delta: float) -> void:
 func new_game():
 	# Reset player
 	$Player.start($StartPosition.position)
-	$Player.power = 1
+	$Player.power = player_power
 	playerDead = false
 
 	# Reset mob
-	power = 5
-	speed = 100
+	enhanced_mob_power_factor = 1
+	level_speed = 100
 	get_tree().call_group("mobs", "queue_free")
 	get_tree().call_group("power ups", "queue_free")
+	
 	# stop & reset timers
 	$MobTimer.stop()
 	$Phase1Timer.stop()
@@ -48,8 +51,8 @@ func game_over():
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
 	var mob = mob_scene.instantiate()
-	mob.speed = speed
-	mob.power = power
+	mob.speed = level_speed
+	mob.power *= enhanced_mob_power_factor
 	#mob.set_power_up_amt(randi_range(1, 2))
 	mob.set_power_up_amt(1)
 	# Choose a random location on Path2D.
@@ -74,8 +77,8 @@ func _on_hud_restart_game() -> void:
 
 func _on_phase_1_timer_timeout() -> void:
 	print("Phase 1 Ended")
-	power = 25
-	speed = 150
+	enhanced_mob_power_factor = 5
+	level_speed = 150
 	if(!playerDead):
 		$CongratsTimer.start()
 	

@@ -2,11 +2,11 @@ extends Node
 
 @export var mob_scene: PackedScene
 @export var boss_scene: PackedScene
-@export var power = 1
-@export var speed = 100
+@export var player_power = 1
+@export var level_speed = 100
+@export var enhanced_mob_power_factor = 1
 
 var playerDead = false
-var mob: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,13 +22,13 @@ func _process(delta: float) -> void:
 func new_game():
 	#Reset player
 	$Player.start($StartPosition.position)
-	$Player.power = power
+	$Player.power = player_power
 	playerDead = false
 	
 
 	# Reset mob
-	#mob.power = 5
-	speed = 100
+	enhanced_mob_power_factor = 1
+	level_speed = 100
 	get_tree().call_group("mobs", "queue_free")
 	get_tree().call_group("power ups", "queue_free")
 	get_tree().call_group("bosses", "queue_free")
@@ -54,9 +54,9 @@ func game_over():
 
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
-	mob = mob_scene.instantiate()
-	mob.speed = speed
-	#mob.power = power
+	var mob = mob_scene.instantiate()
+	mob.speed = level_speed
+	mob.power *= enhanced_mob_power_factor
 	mob.set_power_up_amt(randi_range(1, 2))
 	# mob.set_power_up_amt(1)
 	
@@ -83,8 +83,8 @@ func _on_hud_restart_game() -> void:
 
 func _on_phase_1_timer_timeout() -> void:
 	print("Phase 1 Ended")
-	#mob.power = 25
-	speed = 150
+	enhanced_mob_power_factor = 5
+	level_speed = 150
 	
 func _on_congrats_timer_timeout() -> void:
 	$Congrats.show()
@@ -101,7 +101,6 @@ func _on_boss_timer_timeout() -> void:
 	$MobTimer.stop()
 	var boss = boss_scene.instantiate()
 
-	
 	# set where "half the screen" is for the boss
 	boss.screen_half_y = get_viewport().get_visible_rect().size.y / 2
 
