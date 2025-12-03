@@ -48,7 +48,6 @@ texture = ExtResource("3_bbk5w")
 stretch_mode = 1
 
 [node name="MoveTutorial" type="Label" parent="."]
-visible = false
 offset_left = 1.0
 offset_top = 240.0
 offset_right = 720.0
@@ -60,7 +59,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="FireTutorial" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -80,7 +78,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerTutorial1" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -99,7 +96,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerTutorial2" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -118,7 +114,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerTutorial3" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -137,7 +132,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerUpTutorial" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -156,7 +150,6 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="TutorialComplete" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

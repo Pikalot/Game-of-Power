@@ -1,17 +1,18 @@
-[gd_scene load_steps=12 format=3 uid="uid://clvf1pbup1tbu"]
+[gd_scene load_steps=13 format=3 uid="uid://dophh358uhtwu"]
 
-[ext_resource type="Script" uid="uid://cfsy1y5qbmg4o" path="res://scripts/level2.gd" id="1_6ep0u"]
-[ext_resource type="PackedScene" uid="uid://wq5f81tn7jm2" path="res://scenes/mob.tscn" id="2_bo4dx"]
-[ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="4_8g4ke"]
-[ext_resource type="Texture2D" uid="uid://darw6usionfpu" path="res://art/png/roadTexture.png" id="5_56gwk"]
-[ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="6_ve5ok"]
-[ext_resource type="AudioStream" uid="uid://kp5um61yegpt" path="res://art/bgm/727259__ncone__calm-melody-loop.mp3" id="7_cleqw"]
-[ext_resource type="AudioStream" uid="uid://dlg1fsgmhxl1w" path="res://art/bgm/gameover.wav" id="8_wvb8j"]
-[ext_resource type="PackedScene" uid="uid://cy7gj50lfafvs" path="res://scenes/hud.tscn" id="9_g8vcy"]
-[ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="9_xa7n4"]
+[ext_resource type="Texture2D" uid="uid://darw6usionfpu" path="res://art/png/roadTexture.png" id="1_f0ip2"]
+[ext_resource type="Script" uid="uid://bqxi2g7fikgid" path="res://scripts/level3.gd" id="1_rupth"]
+[ext_resource type="Shader" uid="uid://j8ejpkxjwd5e" path="res://scenes/scroll.gdshader" id="1_yesqi"]
+[ext_resource type="PackedScene" uid="uid://duxanpvwoipke" path="res://scenes/boss.tscn" id="2_5mhml"]
+[ext_resource type="PackedScene" uid="uid://wq5f81tn7jm2" path="res://scenes/mob.tscn" id="2_6qt4k"]
+[ext_resource type="PackedScene" uid="uid://cilj6ph0wk2i6" path="res://scenes/player.tscn" id="4_5mhml"]
+[ext_resource type="AudioStream" uid="uid://kp5um61yegpt" path="res://art/bgm/727259__ncone__calm-melody-loop.mp3" id="5_rupth"]
+[ext_resource type="AudioStream" uid="uid://dlg1fsgmhxl1w" path="res://art/bgm/gameover.wav" id="6_6qt4k"]
+[ext_resource type="PackedScene" uid="uid://cy7gj50lfafvs" path="res://scenes/hud.tscn" id="7_fh4ka"]
+[ext_resource type="FontFile" uid="uid://5j2ek2uxqjqv" path="res://art/Pixelpurl-0vBPP.ttf" id="10_6qt4k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
-shader = ExtResource("4_8g4ke")
+shader = ExtResource("1_yesqi")
 
 [sub_resource type="Curve2D" id="Curve2D_tbgi4"]
 _data = {
@@ -19,9 +20,10 @@ _data = {
 }
 point_count = 2
 
-[node name="Level2" type="Node"]
-script = ExtResource("1_6ep0u")
-mob_scene = ExtResource("2_bo4dx")
+[node name="Level3" type="Node"]
+script = ExtResource("1_rupth")
+mob_scene = ExtResource("2_6qt4k")
+boss_scene = ExtResource("2_5mhml")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -41,14 +43,15 @@ offset_right = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.99, 1)
-texture = ExtResource("5_56gwk")
+texture = ExtResource("1_f0ip2")
 stretch_mode = 1
 
-[node name="Player" parent="." instance=ExtResource("6_ve5ok")]
+[node name="Player" parent="." instance=ExtResource("4_5mhml")]
 scale = Vector2(2, 2)
+power = 5
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 3.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -68,7 +71,7 @@ curve = SubResource("Curve2D_tbgi4")
 position = Vector2(128, 0)
 
 [node name="BGM" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("7_cleqw")
+stream = ExtResource("5_rupth")
 volume_db = -12.0
 bus = &"Music"
 
@@ -76,9 +79,9 @@ bus = &"Music"
 position = Vector2(360, 0)
 
 [node name="GameOver" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("8_wvb8j")
+stream = ExtResource("6_6qt4k")
 
-[node name="HUD" parent="." instance=ExtResource("9_g8vcy")]
+[node name="HUD" parent="." instance=ExtResource("7_fh4ka")]
 
 [node name="Phase1Timer" type="Timer" parent="."]
 wait_time = 15.0
@@ -88,29 +91,27 @@ one_shot = true
 wait_time = 5.0
 
 [node name="CongratsTimer" type="Timer" parent="."]
-wait_time = 25.0
+wait_time = 6.0
 
 [node name="Congrats" type="Label" parent="."]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = -275.0
 offset_top = -89.5
-offset_right = 20.0
+offset_right = 275.0
 offset_bottom = 89.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("9_xa7n4")
+theme_override_fonts/font = ExtResource("10_6qt4k")
 theme_override_font_sizes/font_size = 100
 text = "Level Complete! 
 Congrats!"
 horizontal_alignment = 1
 
 [connection signal="dead" from="Player" to="." method="game_over"]
-[connection signal="dead" from="Player" to="." method="_on_player_dead"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
 [connection signal="timeout" from="BossTimer" to="." method="_on_boss_timer_timeout"]

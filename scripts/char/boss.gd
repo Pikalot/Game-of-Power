@@ -6,6 +6,8 @@ extends "res://scripts/utils/animation.gd"
 @export var acceleration = 25
 @export var max_speed = 450
 
+signal died
+
 var dir_x = 1           				# 1 = right, -1 = left
 var dir_y = 1
 var is_attacking = false
@@ -47,6 +49,7 @@ func die() -> void:
 		return
 
 	is_dead = true
+	emit_signal("died")
 	
 	speed_x = 0
 	speed_y = 0
