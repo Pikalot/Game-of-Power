@@ -2,10 +2,11 @@ extends Node
 
 @export var mob_scene: PackedScene
 @export var boss_scene: PackedScene
-@export var power = 5
+@export var power = 1
 @export var speed = 100
-var playerDead = false
 
+var playerDead = false
+var mob: Node = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,20 +17,21 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	$HUD.update_power($Player.power)
-	pass
+	
 	
 func new_game():
 	#Reset player
 	$Player.start($StartPosition.position)
-	power = 1
+	$Player.power = power
 	playerDead = false
 	
 
 	# Reset mob
-	power = 5
+	#mob.power = 5
 	speed = 100
 	get_tree().call_group("mobs", "queue_free")
 	get_tree().call_group("power ups", "queue_free")
+	get_tree().call_group("bosses", "queue_free")
 	
 	# stop & reset timers
 	$MobTimer.stop()
@@ -52,9 +54,9 @@ func game_over():
 
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
-	var mob = mob_scene.instantiate()
+	mob = mob_scene.instantiate()
 	mob.speed = speed
-	mob.power = power
+	#mob.power = power
 	mob.set_power_up_amt(randi_range(1, 2))
 	# mob.set_power_up_amt(1)
 	
@@ -81,7 +83,7 @@ func _on_hud_restart_game() -> void:
 
 func _on_phase_1_timer_timeout() -> void:
 	print("Phase 1 Ended")
-	power = 25
+	#mob.power = 25
 	speed = 150
 	
 func _on_congrats_timer_timeout() -> void:

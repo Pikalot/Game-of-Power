@@ -201,7 +201,7 @@ animations = [{
 radius = 53.333336
 height = 138.66667
 
-[node name="boss" type="RigidBody2D"]
+[node name="boss" type="RigidBody2D" groups=["bosses"]]
 collision_mask = 2
 gravity_scale = 0.0
 script = ExtResource("3_jncid")
