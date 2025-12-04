@@ -25,6 +25,7 @@ point_count = 2
 script = ExtResource("1_rupth")
 mob_scene = ExtResource("2_6qt4k")
 boss_scene = ExtResource("2_5mhml")
+player_power = 6
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
