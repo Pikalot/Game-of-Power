@@ -2,6 +2,7 @@ extends Node
 
 @export var mob_scene: PackedScene
 @export var boss_scene: PackedScene
+@export var potion_scene: PackedScene
 @export var player_power = 1
 @export var level_speed = 100
 @export var enhanced_mob_power_factor = 1
@@ -34,9 +35,7 @@ func new_game():
 	get_tree().call_group("bosses", "queue_free")
 	
 	# stop & reset timers
-	$MobTimer.stop()
-	$Phase1Timer.stop()
-	$BossTimer.stop()
+	stop_timers()
 	$CongratsTimer.stop()
 	$EndLevelTimer.stop()
 	
@@ -50,12 +49,16 @@ func game_over():
 		item.stop_moving = true
 		
 	ScrollManager.stop_scroll($RoadPattern)
-	$MobTimer.stop()
+	stop_timers()
 	$HUD.show_game_over()
-	$BossTimer.stop()
 	$BGM.stop()
 	$GameOver.play()
 
+func stop_timers():
+	$MobTimer.stop()
+	$Phase1Timer.stop()
+	$BossTimer.stop()
+	$PotionDropTimer.stop()
 
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
@@ -81,6 +84,7 @@ func _on_mob_timer_timeout() -> void:
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
 	$Phase1Timer.start()
+	$PotionDropTimer.start()
 
 func _on_hud_restart_game() -> void:
 	new_game()
@@ -89,6 +93,7 @@ func _on_phase_1_timer_timeout() -> void:
 	enhanced_mob_power_factor = 6
 	level_speed = 150
 	$BossTimer.start()
+	$PotionDropTimer.start()
 	
 func _on_congrats_timer_timeout() -> void:
 	$Congrats.show()
@@ -103,6 +108,7 @@ func _on_end_level_timer_timeout() -> void:
 func _on_boss_timer_timeout() -> void:
 	# Stop spawning mobs
 	$MobTimer.stop()
+	$PotionDropTimer.start()
 	var boss = boss_scene.instantiate()
 
 	# set where "half the screen" is for the boss
@@ -130,3 +136,17 @@ func _on_player_dead() -> void:
 func _on_boss_died() -> void:
 	if !playerDead:
 		$CongratsTimer.start()
+
+
+func _on_potion_drop_timer_timeout() -> void:
+	var potion = potion_scene.instantiate()
+
+	# Choose a random location on Path2D.
+	var potion_spawn_location = $Path2D/PathFollow2D
+	potion_spawn_location.progress_ratio = randf()
+	
+	# Set the potion's position to the random location.
+	potion.position = potion_spawn_location.position
+
+	# Spawn the potion by adding it to the Main scene.
+	add_child(potion)
