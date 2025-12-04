@@ -5,6 +5,7 @@ extends Area2D
 
 enum PowerUpType { BULLET_SPEED, POWER }
 enum Operation {MULT, DIV, SUB, ADD}
+var stop_moving = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,6 +26,9 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if stop_moving:
+		return
+		
 	var velocity = Vector2.ZERO
 	velocity.y += 35
 	position += velocity * delta

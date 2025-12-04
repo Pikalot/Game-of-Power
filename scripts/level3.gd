@@ -24,7 +24,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$Player.power = player_power
 	playerDead = false
-	
+	start_scroll()
 
 	# Reset mob
 	enhanced_mob_power_factor = 1
@@ -45,6 +45,10 @@ func new_game():
 
 # Terminate game	
 func game_over():
+	# Stop all power-up drops
+	for item in get_tree().get_nodes_in_group("power ups"):
+		item.stop_moving = true
+	stop_scroll()
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$BossTimer.stop()
@@ -125,3 +129,14 @@ func _on_player_dead() -> void:
 func _on_boss_died() -> void:
 	if !playerDead:
 		$CongratsTimer.start()
+
+# Start and stop scrolling shader
+func start_scroll() -> void:
+	var mat = $RoadPattern.material
+	if mat is ShaderMaterial:
+		mat.set_shader_parameter("scroll_speed", 0.05)
+
+func stop_scroll() -> void:
+	var mat = $RoadPattern.material
+	if mat is ShaderMaterial:
+		mat.set_shader_parameter("scroll_speed", 0.0)

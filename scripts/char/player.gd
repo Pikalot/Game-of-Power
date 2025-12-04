@@ -20,7 +20,8 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	
 func start(pos):
-	touching = false;
+	touching = false
+	is_dead = false
 	position = pos
 	show()
 	$ShootTimer.start()
@@ -117,17 +118,12 @@ func take_hit(damage: int) -> void:
 		
 func die() -> void:
 	is_dead = true
-
-	# Stop scrolling shader
-	var mat = $"../RoadPattern".material
-	if mat is ShaderMaterial:
-		mat.set_shader_parameter("scroll_speed", 0.0)
-
+	dead.emit()
 	stop_shooting()
 	$AnimatedSprite2D.play("die")
 	await $AnimatedSprite2D.animation_finished
+	
 	hide() # Player disappears after being hit.
-	dead.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.
 	$CollisionShape2D.set_deferred("disabled", true)
 

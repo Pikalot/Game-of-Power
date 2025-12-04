@@ -47,6 +47,10 @@ func game_over():
 	$BGM.stop()
 	$GameOver.play()
 
+	# Stop all power-up drops
+	for item in get_tree().get_nodes_in_group("power ups"):
+		item.stop_moving = true
+
 
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
