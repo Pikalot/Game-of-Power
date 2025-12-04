@@ -1,7 +1,8 @@
 shader_type canvas_item;
+uniform float scroll_speed = 0.05;
 
 void vertex() {
-	UV.y -= TIME * 0.05;
+	UV.y -= TIME * scroll_speed;
 }
 
 void fragment() {

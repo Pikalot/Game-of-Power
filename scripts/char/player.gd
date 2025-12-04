@@ -13,6 +13,7 @@ var touching
 var mob: Node = null
 var invincible: bool = false
 var invincible_duration: float = 1.0
+var is_dead: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,22 +28,34 @@ func start(pos):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if is_dead:
+		return
+
 	var velocity = Vector2.ZERO # The player's movement vector.
 	if(touching):
 		if (touchPos.x < position.x - 50):
 			velocity.x -= 1
-		if (touchPos.x > position.x + 50):
+			$AnimatedSprite2D.play("left")
+		elif (touchPos.x > position.x + 50):
 			velocity.x += 1
+			$AnimatedSprite2D.play("right")
+		else:
+			$AnimatedSprite2D.play("walk")
+
 	if(!touching):
 		if Input.is_action_pressed("move_right") or Input.is_action_pressed("ui_right"):
 			velocity.x += 1
-		if Input.is_action_pressed("move_left") or Input.is_action_pressed("ui_left"):
+			$AnimatedSprite2D.play("right")
+		elif Input.is_action_pressed("move_left") or Input.is_action_pressed("ui_left"):
 			velocity.x -= 1
+			$AnimatedSprite2D.play("left")
+		else:
+			$AnimatedSprite2D.play("walk")
+
 
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		
-	$AnimatedSprite2D.play()
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO + Vector2(150, 0), screen_size - Vector2(150, 0))
 	
@@ -92,7 +105,7 @@ func _on_shoot_timer_timeout() -> void:
 	shoot()
 	
 func take_hit(damage: int) -> void:
-	if invincible:
+	if invincible or is_dead:
 		return  # ignore damage during i-frames
 
 	$HurtSound.play()
@@ -103,7 +116,16 @@ func take_hit(damage: int) -> void:
 		start_invincibility()
 		
 func die() -> void:
+	is_dead = true
+
+	# Stop scrolling shader
+	var mat = $"../RoadPattern".material
+	if mat is ShaderMaterial:
+		mat.set_shader_parameter("scroll_speed", 0.0)
+
 	stop_shooting()
+	$AnimatedSprite2D.play("die")
+	await $AnimatedSprite2D.animation_finished
 	hide() # Player disappears after being hit.
 	dead.emit()
 	# Must be deferred as we can't change physics properties on a physics callback.

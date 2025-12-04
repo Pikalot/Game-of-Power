@@ -13,6 +13,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("1_yesqi")
+shader_parameter/scroll_speed = 0.05
 
 [sub_resource type="Curve2D" id="Curve2D_tbgi4"]
 _data = {
@@ -33,7 +34,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.44705883, 0.6431373, 0.8156863, 1)
 
-[node name="RoadPatern" type="TextureRect" parent="."]
+[node name="RoadPattern" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_tefeu")
 anchors_preset = 15
 anchor_right = 1.0
