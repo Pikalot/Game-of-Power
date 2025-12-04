@@ -29,6 +29,7 @@ func _integrate_forces(state):
 	if position.y > screen_half_y:
 		speed += acceleration * state.step
 		speed = min(speed, max_speed)
+		play_animation("attack")
 
 	linear_velocity = Vector2(0, speed)
 

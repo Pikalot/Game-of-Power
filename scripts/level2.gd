@@ -22,6 +22,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$Player.power = player_power
 	playerDead = false
+	ScrollManager.start_scroll($RoadPattern, 0.05)
 
 	# Reset mob
 	enhanced_mob_power_factor = 1
@@ -41,6 +42,10 @@ func new_game():
 
 # Terminate game	
 func game_over():
+	# Stop all power-up drops
+	for item in get_tree().get_nodes_in_group("power ups"):
+		item.stop_moving = true
+	ScrollManager.stop_scroll($RoadPattern)
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$BossTimer.stop()
