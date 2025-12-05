@@ -183,10 +183,8 @@ text = "Credits"
 flat = true
 
 [node name="Main_Menu_Settings" parent="." instance=ExtResource("3_bqqt6")]
-visible = false
 
 [node name="Credits" parent="." instance=ExtResource("4_wu84c")]
-visible = false
 
 [node name="PlayerCharacter" type="AnimatedSprite2D" parent="."]
 position = Vector2(360, 568)
