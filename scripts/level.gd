@@ -5,6 +5,7 @@ var Scene
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Scene = load("res://scenes/" + level_name + ".tscn")
+	$Label.text = level_name
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
