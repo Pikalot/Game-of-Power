@@ -29,6 +29,7 @@ func game_over():
 	$BGM.stop()
 	$GameOver.play()
 	stop_timer()
+	hide_tutorial()
 
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
@@ -90,3 +91,11 @@ func stop_timer() -> void:
 	$ShowPowerUpTutorial.stop()
 	$TutorialCompleteTimer.stop()
 	$EndLevelTimer.stop()
+
+func hide_tutorial() -> void:
+	$MoveTutorial.hide()
+	$FireTutorial.hide()
+	$PowerTutorial1.hide()
+	$PowerTutorial3.hide()
+	$PowerUpTutorial.hide()
+	$TutorialComplete.hide()
