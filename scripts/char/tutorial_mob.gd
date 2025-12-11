@@ -5,6 +5,9 @@ extends "res://scripts/utils/animation.gd"
 @export var acceleration = 25
 @export var max_speed = 450
 @export var powerup_scene: PackedScene
+@export var power_up_op = "+"
+@export var power_up_amt = 1
+@export var power_up_type = "POWER"
 
 var screen_half_y = 0  # will be set from Main
 
@@ -30,12 +33,13 @@ func _integrate_forces(state):
 	linear_velocity = Vector2(0, speed)
 
 func die() -> void:
-	emit_signal("death")
+	#Set up power up
 	var power_up = powerup_scene.instantiate()
-	power_up.set_amount(1)
-	power_up.set_operation(power_up.Operation.ADD)
-	power_up.set_type(power_up.PowerUpType.POWER)
+	power_up.set_amount(power_up_amt)
+	power_up.set_operation(power_up_op)
+	power_up.set_type(power_up_type)
 	get_parent().add_child(power_up)
+	
 	power_up.global_position = global_position
 	# Play death sound
 	var death_sound = $DeadSound.duplicate()
