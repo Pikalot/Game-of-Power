@@ -12,6 +12,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tefeu"]
 shader = ExtResource("4_2ku1j")
+shader_parameter/scroll_speed = 0.05
 
 [sub_resource type="Curve2D" id="Curve2D_tbgi4"]
 _data = {
@@ -48,6 +49,7 @@ texture = ExtResource("3_bbk5w")
 stretch_mode = 1
 
 [node name="MoveTutorial" type="Label" parent="."]
+visible = false
 offset_left = 1.0
 offset_top = 240.0
 offset_right = 720.0
@@ -59,6 +61,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="FireTutorial" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -78,6 +81,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerTutorial1" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -96,6 +100,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerTutorial2" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -114,6 +119,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerTutorial3" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -132,6 +138,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="PowerUpTutorial" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -150,6 +157,7 @@ horizontal_alignment = 1
 autowrap_mode = 3
 
 [node name="TutorialComplete" type="Label" parent="."]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -198,27 +206,27 @@ stream = ExtResource("8_dxn3v")
 [node name="HUD" parent="." instance=ExtResource("9_14jow")]
 
 [node name="ShowPowerTutorial1" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="ShowPowerTutorial2" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="ShowPowerTutorial3" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="ShowPowerUpTutorial" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="TutorialCompleteTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [node name="EndLevelTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 4.0
 one_shot = true
 
 [connection signal="dead" from="Player" to="." method="game_over"]
