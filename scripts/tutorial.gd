@@ -28,6 +28,7 @@ func game_over():
 	$MobTimer.stop()
 	$BGM.stop()
 	$GameOver.play()
+	stop_timer()
 
 func _on_mob_timer_timeout() -> void:
 	# Create a new instance of the Mob scene.
@@ -79,3 +80,13 @@ func _on_tutorial_complete_timer_timeout() -> void:
 func _on_end_level_timer_timeout() -> void:
 	var Scene = load("res://scenes/level_select.tscn")
 	get_tree().change_scene_to_packed(Scene)
+	
+func stop_timer() -> void:
+	$MobTimer.stop()
+	$StartTimer.stop()
+	$ShowPowerTutorial1.stop()
+	$ShowPowerTutorial2.stop()
+	$ShowPowerTutorial3.stop()
+	$ShowPowerUpTutorial.stop()
+	$TutorialCompleteTimer.stop()
+	$EndLevelTimer.stop()

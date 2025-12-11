@@ -31,11 +31,7 @@ func new_game():
 	get_tree().call_group("power ups", "queue_free")
 	
 	# stop & reset timers
-	$MobTimer.stop()
-	$Phase1Timer.stop()
-	$BossTimer.stop()
-	$CongratsTimer.stop()
-	$EndLevelTimer.stop()
+	stop_timer()
 	
 	$BGM.play()
 	$StartTimer.start()
@@ -46,11 +42,10 @@ func game_over():
 	for item in get_tree().get_nodes_in_group("power ups"):
 		item.stop_moving = true
 	ScrollManager.stop_scroll($RoadPattern)
-	$MobTimer.stop()
 	$HUD.show_game_over()
-	$BossTimer.stop()
 	$BGM.stop()
 	$GameOver.play()
+	stop_timer()
 
 	# Stop all power-up drops
 	for item in get_tree().get_nodes_in_group("power ups"):
@@ -106,3 +101,12 @@ func _on_player_dead() -> void:
 
 func _on_boss_timer_timeout() -> void:
 	pass # Replace with function body.
+	
+func stop_timer() -> void:
+	$Phase1Timer.stop()
+	$MobTimer.stop()
+	$StartTimer.stop()
+	$Phase1Timer.stop()
+	$EndLevelTimer.stop()
+	$CongratsTimer.stop()
+	
