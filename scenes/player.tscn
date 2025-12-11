@@ -265,6 +265,7 @@ scale = Vector2(6, 6)
 collision_layer = 4
 script = ExtResource("1_qhqgy")
 bullet_scene = ExtResource("2_dqkch")
+bullet_speed = 500.0
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

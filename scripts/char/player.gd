@@ -6,6 +6,7 @@ signal dead
 @export var power = 1
 @export var speed = 500 # How fast the player will move (pixels/sec).
 @export var bullet_speed = 300.0
+@export var shoot_cooldown: float = 1.0     
 
 var screen_size # Size of the game window.
 var touchPos
@@ -24,6 +25,7 @@ func start(pos):
 	is_dead = false
 	position = pos
 	show()
+	$ShootTimer.wait_time = shoot_cooldown
 	$ShootTimer.start()
 	$CollisionShape2D.disabled = false
 
@@ -144,5 +146,6 @@ func start_invincibility() -> void:
 func set_power(newPower: int) -> void:
 	power = newPower
 	
-func set_bullet_speed(newSpeed: int) -> void:
-	bullet_speed = newSpeed
+func set_fire_rate(new_cooldown: float) -> void:
+	shoot_cooldown = max(0.05, new_cooldown)  # avoid 0 or negative
+	$ShootTimer.wait_time = shoot_cooldown

@@ -41,7 +41,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h1aey"]
-radius = 8.0
+radius = 16.0
 height = 48.0
 
 [node name="Bullet" type="Area2D"]
@@ -50,7 +50,7 @@ script = ExtResource("1_eoqba")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = -1.5707964
-scale = Vector2(2, 2)
+scale = Vector2(2, 3)
 sprite_frames = SubResource("SpriteFrames_qncy5")
 frame_progress = 0.061468888
 
