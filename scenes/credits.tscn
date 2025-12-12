@@ -28,12 +28,12 @@ theme_override_font_sizes/font_size = 200
 text = "Credits"
 
 [node name="Credits" type="Label" parent="."]
-offset_left = 192.0
-offset_top = 192.0
-offset_right = 505.0
-offset_bottom = 612.0
+offset_left = -504.0
+offset_top = 176.0
+offset_right = 1216.0
+offset_bottom = 1066.0
 theme_override_fonts/font = ExtResource("1_0bpdh")
-theme_override_font_sizes/font_size = 50
+theme_override_font_sizes/font_size = 40
 text = "Programmers:
 	Alex Lim
 	Tuan Anh Ho
@@ -41,22 +41,66 @@ text = "Programmers:
 Art Assets From:
 	@Sscary on Itch.io
 
-Music / SFX:
+
+
+
 	"
 horizontal_alignment = 1
 
+[node name="Credits2" type="Label" parent="."]
+offset_left = -496.0
+offset_top = 448.0
+offset_right = 1224.0
+offset_bottom = 1338.0
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 40
+text = "Music and SFX:"
+horizontal_alignment = 1
+
+[node name="Music Credits" type="Label" parent="."]
+offset_left = 64.0
+offset_top = 464.0
+offset_right = 1168.0
+offset_bottom = 1297.0
+theme_override_fonts/font = ExtResource("1_0bpdh")
+theme_override_font_sizes/font_size = 25
+text = "
+Calm Melody Loop by Ncone
+ 	-- https://freesound.org/s/727259/ -- License: Creative Commons 0
+Destruction 8 Bit.wav by Mrthenoronha
+ 	-- https://freesound.org/s/512660/
+ 	-- License: Attribution NonCommercial 4.0
+Fireball by qubodup
+	 -- https://freesound.org/s/442827/ -- License: Attribution 4.0
+Short-Fireball-Woosh.flac by wjl 
+	-- https://freesound.org/s/267887/ -- License: Creative Commons 0
+Match by qubodup
+ 	-- https://freesound.org/s/171693/ -- License: Attribution 4.0
+23 FIACCOLA PASS.aiff by lollosound
+	-- https://freesound.org/s/124372/ -- License: Creative Commons 0
+Dull Decompression Punch Impact Explodes 96kHz by qubodup
+ 	-- https://freesound.org/s/71274/ -- License: Creative Commons 0
+Projectile Hit by unfa
+ 	-- https://freesound.org/s/193429/ -- License: Creative Commons 0
+Fireball Explosion.wav by HighPixel
+ 	-- https://freesound.org/s/431174/ -- License: Creative Commons 0
+Enemy Dying.wav by vox_artist
+ 	-- https://freesound.org/s/512166/ -- License: Creative Commons 0
+
+"
+
 [node name="BackButton" type="Button" parent="."]
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -135.5
-offset_top = 126.5
-offset_right = 135.5
-offset_bottom = 263.5
+anchor_bottom = 1.0
+offset_left = -136.0
+offset_top = -256.0
+offset_right = 135.0
+offset_bottom = -119.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_0bpdh")
 theme_override_font_sizes/font_size = 150
 text = "BACK"
